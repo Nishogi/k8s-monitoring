@@ -584,8 +584,9 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sort_desc(sum by (pod, namespace) (rate(container_cpu_usage_seconds_total[5m])))",
+          "expr": "sort_desc(sum by (pod, namespace) (rate(container_cpu_usage_seconds_total[$__rate_interval])))",
           "instant": true,
+          "interval": "1m",
           "legendFormat": "{{namespace}} - {{pod}}",
           "range": false,
           "refId": "A"
@@ -1350,7 +1351,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1358,13 +1359,13 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "cluster",
   "uid": "c5ee7ccc-8565-4c09-9199-7ff52b1cd9dc",
-  "version": 13,
+  "version": 14,
   "weekStart": ""
 }
