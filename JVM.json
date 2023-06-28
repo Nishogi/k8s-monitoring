@@ -81,8 +81,78 @@
       },
       "id": 12,
       "panels": [],
-      "title": "General",
+      "repeat": "pod",
+      "repeatDirection": "h",
+      "title": "« $pod » from the namespace « $namespace »",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 11,
+        "x": 0,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^pod$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "kube_pod_container_info{pod=\"$pod\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "pod name",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -132,7 +202,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 0,
+        "x": 11,
         "y": 1
       },
       "id": 1,
@@ -158,7 +228,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "up{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "up{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -205,7 +275,7 @@
       "gridPos": {
         "h": 4,
         "w": 5,
-        "x": 4,
+        "x": 15,
         "y": 1
       },
       "id": 3,
@@ -231,7 +301,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_Runtime_StartTime{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_Runtime_StartTime{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -269,7 +339,7 @@
       "gridPos": {
         "h": 4,
         "w": 4,
-        "x": 9,
+        "x": 20,
         "y": 1
       },
       "id": 2,
@@ -295,7 +365,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_Runtime_Uptime{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_Runtime_Uptime{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -312,123 +382,41 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "fixedColor": "light-blue",
             "mode": "thresholds"
           },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "null": {
-                  "color": "red",
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
+          "mappings": [],
+          "max": 1,
+          "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "none"
+          "unit": "percentunit"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 11,
-        "x": 13,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "jdk",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "label_join(jvm_info{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}, \"jdk\", \", \", \"vendor\", \"runtime\", \"version\")",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "JVM version",
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 5,
+        "w": 8,
         "x": 0,
         "y": 5
       },
-      "id": 11,
-      "panels": [],
-      "title": "CPU",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "light-blue",
-            "mode": "fixed"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 0,
-        "y": 6
-      },
       "id": 13,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -437,7 +425,8 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "9.5.2",
       "targets": [
@@ -448,15 +437,15 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "java_lang_OperatingSystem_AvailableProcessors{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_SystemCpuLoad{pod=\"$pod\"}+java_lang_OperatingSystem_ProcessCpuLoad{pod=\"$pod\"}",
           "instant": true,
           "legendFormat": "",
           "range": false,
           "refId": "A"
         }
       ],
-      "title": "Available CPUs",
-      "type": "stat"
+      "title": "total CPU load",
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -526,7 +515,7 @@
         "h": 10,
         "w": 16,
         "x": 8,
-        "y": 6
+        "y": 5
       },
       "id": 9,
       "options": {
@@ -548,7 +537,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_OperatingSystem_SystemCpuLoad{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_SystemCpuLoad{pod=\"$pod\"}",
           "legendFormat": "system",
           "range": true,
           "refId": "A"
@@ -559,7 +548,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_OperatingSystem_ProcessCpuLoad{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_ProcessCpuLoad{pod=\"$pod\"}",
           "hide": false,
           "legendFormat": "user",
           "range": true,
@@ -604,7 +593,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 4,
         "x": 0,
         "y": 10
@@ -630,7 +619,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_OperatingSystem_SystemCpuLoad{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_SystemCpuLoad{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -674,7 +663,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 4,
         "x": 4,
         "y": 10
@@ -700,7 +689,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_OperatingSystem_ProcessCpuLoad{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_ProcessCpuLoad{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -708,19 +697,6 @@
       ],
       "title": "User CPU load",
       "type": "gauge"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 16
-      },
-      "id": 14,
-      "panels": [],
-      "title": "Memory",
-      "type": "row"
     },
     {
       "datasource": {
@@ -751,7 +727,7 @@
         "h": 6,
         "w": 5,
         "x": 0,
-        "y": 17
+        "y": 15
       },
       "id": 7,
       "options": {
@@ -776,7 +752,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_OperatingSystem_TotalPhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_OperatingSystem_TotalPhysicalMemorySize{pod=\"$pod\"}",
           "legendFormat": "",
           "range": true,
           "refId": "A"
@@ -823,7 +799,7 @@
         "h": 6,
         "w": 5,
         "x": 5,
-        "y": 17
+        "y": 15
       },
       "id": 8,
       "options": {
@@ -846,7 +822,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "(java_lang_OperatingSystem_TotalPhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"} - java_lang_OperatingSystem_FreePhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}) / java_lang_OperatingSystem_TotalPhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "(java_lang_OperatingSystem_TotalPhysicalMemorySize{pod=\"$pod\"} - java_lang_OperatingSystem_FreePhysicalMemorySize{pod=\"$pod\"}) / java_lang_OperatingSystem_TotalPhysicalMemorySize{pod=\"$pod\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -923,7 +899,7 @@
         "h": 6,
         "w": 14,
         "x": 10,
-        "y": 17
+        "y": 15
       },
       "id": 24,
       "options": {
@@ -945,7 +921,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "(java_lang_OperatingSystem_TotalPhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"} - java_lang_OperatingSystem_FreePhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}) / java_lang_OperatingSystem_TotalPhysicalMemorySize{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "(java_lang_OperatingSystem_TotalPhysicalMemorySize{pod=\"$pod\"} - java_lang_OperatingSystem_FreePhysicalMemorySize{pod=\"$pod\"}) / java_lang_OperatingSystem_TotalPhysicalMemorySize{pod=\"$pod\"}",
           "legendFormat": "Used physical memory",
           "range": true,
           "refId": "A"
@@ -963,7 +939,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 21
       },
       "id": 16,
       "options": {
@@ -1099,7 +1075,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 24
       },
       "id": 5,
       "options": {
@@ -1121,7 +1097,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "jvm_memory_bytes_used{pod=\"$pod\"}",
           "legendFormat": "used {{area}}",
           "range": true,
           "refId": "A"
@@ -1132,7 +1108,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "jvm_memory_bytes_max{pod=\"$pod\"}",
           "hide": false,
           "legendFormat": "max {{area}}",
           "range": true,
@@ -1200,7 +1176,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 34
       },
       "id": 15,
       "options": {
@@ -1226,7 +1202,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1237,7 +1213,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -1256,7 +1232,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 45
       },
       "id": 23,
       "options": {
@@ -1361,7 +1337,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 50
+        "y": 48
       },
       "id": 17,
       "options": {
@@ -1383,7 +1359,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Code Cache\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"Code Cache\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1394,7 +1370,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Code Cache\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"Code Cache\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -1493,7 +1469,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 50
+        "y": 48
       },
       "id": 20,
       "options": {
@@ -1515,7 +1491,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Compressed Class Space\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"Compressed Class Space\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1526,7 +1502,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Compressed Class Space\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"Compressed Class Space\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -1625,7 +1601,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 58
+        "y": 56
       },
       "id": 19,
       "options": {
@@ -1647,7 +1623,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Metaspace\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"Metaspace\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1658,7 +1634,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"Metaspace\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"Metaspace\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -1757,7 +1733,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 58
+        "y": 56
       },
       "id": 21,
       "options": {
@@ -1779,7 +1755,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Old Gen\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"PS Old Gen\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1790,7 +1766,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Old Gen\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -1889,7 +1865,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 66
+        "y": 64
       },
       "id": 18,
       "options": {
@@ -1911,7 +1887,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Eden Space\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"PS Eden Space\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -1922,7 +1898,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Eden Space\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"PS Eden Space\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -2021,7 +1997,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 66
+        "y": 64
       },
       "id": 22,
       "options": {
@@ -2043,7 +2019,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Survivor Space\"}",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"PS Survivor Space\"}",
           "legendFormat": "used {{pool}}",
           "range": true,
           "refId": "A"
@@ -2054,7 +2030,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_memory_pool_bytes_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\",pool=\"PS Survivor Space\"}",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"PS Survivor Space\"}",
           "hide": false,
           "legendFormat": "max {{pool}}",
           "range": true,
@@ -2065,17 +2041,136 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 74
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
-      "id": 26,
-      "panels": [],
-      "title": "Thread",
-      "type": "row"
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "used PS Survivor Space"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max PS Survivor Space"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 72
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "jvm_memory_pool_bytes_used{pod=\"$pod\",pool=\"PS Survivor Space\"}",
+          "legendFormat": "used {{pool}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "jvm_memory_pool_bytes_max{pod=\"$pod\",pool=\"PS Survivor Space\"}",
+          "hide": false,
+          "legendFormat": "max {{pool}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "PS Survivor Space memory",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2225,7 +2320,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 75
+        "y": 80
       },
       "id": 25,
       "options": {
@@ -2247,7 +2342,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "jvm_threads_state{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "jvm_threads_state{pod=\"$pod\"}",
           "legendFormat": "{{state}}",
           "range": true,
           "refId": "A"
@@ -2255,19 +2350,6 @@
       ],
       "title": "Thread state",
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 83
-      },
-      "id": 33,
-      "panels": [],
-      "title": "Tomcat",
-      "type": "row"
     },
     {
       "datasource": {
@@ -2343,7 +2425,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 84
+        "y": 88
       },
       "id": 28,
       "options": {
@@ -2366,7 +2448,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(Catalina_GlobalRequestProcessor_requestCount{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}[$__rate_interval])",
+          "expr": "rate(Catalina_GlobalRequestProcessor_requestCount{pod=\"$pod\"}[$__rate_interval])",
           "instant": false,
           "legendFormat": "Request count ",
           "range": true,
@@ -2451,7 +2533,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 84
+        "y": 88
       },
       "id": 27,
       "options": {
@@ -2474,7 +2556,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(Catalina_GlobalRequestProcessor_processingTime{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}[$__rate_interval])\n\n",
+          "expr": "rate(Catalina_GlobalRequestProcessor_processingTime{pod=\"$pod\"}[$__rate_interval])\n\n",
           "instant": false,
           "legendFormat": "The number of requests across all connectors\t",
           "range": true,
@@ -2542,7 +2624,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 92
+        "y": 96
       },
       "id": 29,
       "options": {
@@ -2564,7 +2646,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(Catalina_ThreadPool_currentThreadsBusy{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(Catalina_ThreadPool_currentThreadsBusy{pod=\"$pod\"})",
           "legendFormat": "current Threads Busy",
           "range": true,
           "refId": "A"
@@ -2575,7 +2657,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(Catalina_ThreadPool_maxThreads{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(Catalina_ThreadPool_maxThreads{pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "max Threads",
           "range": true,
@@ -2659,7 +2741,7 @@
         "h": 8,
         "w": 4,
         "x": 8,
-        "y": 92
+        "y": 96
       },
       "id": 30,
       "options": {
@@ -2681,7 +2763,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(Catalina_GlobalRequestProcessor_errorCount{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}[$__rate_interval]))",
+          "expr": "sum(rate(Catalina_GlobalRequestProcessor_errorCount{pod=\"$pod\"}[$__rate_interval]))",
           "legendFormat": "Server requests errors",
           "range": true,
           "refId": "A"
@@ -2749,7 +2831,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 92
+        "y": 96
       },
       "id": 31,
       "options": {
@@ -2771,7 +2853,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_GarbageCollector_CollectionCount{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
+          "expr": "java_lang_GarbageCollector_CollectionCount{pod=\"$pod\"}",
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
@@ -2839,7 +2921,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 100
+        "y": 104
       },
       "id": 34,
       "options": {
@@ -2865,7 +2947,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_max{pod=\"$pod\"})",
           "legendFormat": "max",
           "range": true,
           "refId": "A"
@@ -2876,7 +2958,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_used{pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "used",
           "range": true,
@@ -2888,7 +2970,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_committed{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_committed{pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "commited",
           "range": true,
@@ -2900,7 +2982,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_init {namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_init {pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "init",
           "range": true,
@@ -2969,7 +3051,7 @@
         "h": 10,
         "w": 16,
         "x": 8,
-        "y": 100
+        "y": 104
       },
       "id": 32,
       "options": {
@@ -2995,7 +3077,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(java_lang_Memory_HeapMemoryUsage_max{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(java_lang_Memory_HeapMemoryUsage_max{pod=\"$pod\"})",
           "legendFormat": "max",
           "range": true,
           "refId": "A"
@@ -3006,7 +3088,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(java_lang_Memory_HeapMemoryUsage_used{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum(java_lang_Memory_HeapMemoryUsage_used{pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "used",
           "range": true,
@@ -3018,7 +3100,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum( java_lang_Memory_HeapMemoryUsage_committed{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum( java_lang_Memory_HeapMemoryUsage_committed{pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "commited",
           "range": true,
@@ -3030,7 +3112,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum( java_lang_Memory_HeapMemoryUsage_init {namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"})",
+          "expr": "sum( java_lang_Memory_HeapMemoryUsage_init {pod=\"$pod\"})",
           "hide": false,
           "legendFormat": "init",
           "range": true,
@@ -3078,7 +3160,7 @@
         "definition": "label_values(jvm_info{namespace=\"$namespace\"},service)",
         "hide": 0,
         "includeAll": false,
-        "multi": false,
+        "multi": true,
         "name": "service",
         "options": [],
         "query": {
@@ -3097,14 +3179,14 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(jvm_info{namespace=\"$namespace\", service=\"$service\"},pod)",
+        "definition": "label_values(jvm_info{namespace=\"$namespace\", service=~\"$service\"},pod)",
         "hide": 0,
         "includeAll": false,
         "multi": true,
         "name": "pod",
         "options": [],
         "query": {
-          "query": "label_values(jvm_info{namespace=\"$namespace\", service=\"$service\"},pod)",
+          "query": "label_values(jvm_info{namespace=\"$namespace\", service=~\"$service\"},pod)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -3123,6 +3205,6 @@
   "timezone": "",
   "title": "JVM",
   "uid": "fb565b78-f536-4426-921a-d3725a5efde3",
-  "version": 20,
+  "version": 3,
   "weekStart": ""
 }
