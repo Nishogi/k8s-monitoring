@@ -492,7 +492,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "dashed"
@@ -561,7 +561,7 @@
           "editorMode": "code",
           "expr": "java_lang_OperatingSystem_ProcessCpuLoad{namespace=\"$namespace\", service=\"$service\", pod=\"$pod\"}",
           "hide": false,
-          "legendFormat": "process",
+          "legendFormat": "user",
           "range": true,
           "refId": "B"
         }
@@ -706,7 +706,7 @@
           "refId": "A"
         }
       ],
-      "title": "Process CPU load",
+      "title": "User CPU load",
       "type": "gauge"
     },
     {
@@ -2236,8 +2236,8 @@
           "showLegend": true
         },
         "tooltip": {
-          "mode": "single",
-          "sort": "none"
+          "mode": "multi",
+          "sort": "desc"
         }
       },
       "targets": [
@@ -2481,7 +2481,7 @@
           "refId": "A"
         }
       ],
-      "title": "processingTime",
+      "title": "Processing time",
       "type": "timeseries"
     },
     {
@@ -3041,7 +3041,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -3100,7 +3100,7 @@
         "definition": "label_values(jvm_info{namespace=\"$namespace\", service=\"$service\"},pod)",
         "hide": 0,
         "includeAll": false,
-        "multi": false,
+        "multi": true,
         "name": "pod",
         "options": [],
         "query": {
@@ -3116,13 +3116,13 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "JVM",
   "uid": "fb565b78-f536-4426-921a-d3725a5efde3",
-  "version": 15,
+  "version": 20,
   "weekStart": ""
 }
