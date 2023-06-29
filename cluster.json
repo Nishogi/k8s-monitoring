@@ -78,10 +78,35 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
+  "graphTooltip": 1,
   "id": null,
-  "links": [],
-  "liveNow": false,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "JVM Dashboard",
+      "tooltip": "Open JVM dashboard",
+      "type": "link",
+      "url": "https://app-test.geoconcept.com/zgrafana/d/fb565b78-f536-4426-921a-d3725a5efde3/jvm?orgId=1&refresh=5s"
+    },
+    {
+      "asDropdown": false,
+      "icon": "doc",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": true,
+      "title": "Drill/Down Dasboard",
+      "tooltip": "open drill/down dashboard",
+      "type": "link",
+      "url": "https://app-test.geoconcept.com/zgrafana/d/dfcd70ea-dbac-4bfa-b71e-bcb93e5be1f3/drill-down?orgId=1"
+    }
+  ],
+  "liveNow": true,
   "panels": [
     {
       "gridPos": {
@@ -1489,7 +1514,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "1m",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -1504,6 +1529,6 @@
   "timezone": "",
   "title": "cluster",
   "uid": "c5ee7ccc-8565-4c09-9199-7ff52b1cd9dc",
-  "version": 23,
+  "version": 33,
   "weekStart": ""
 }
