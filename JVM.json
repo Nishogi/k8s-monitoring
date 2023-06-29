@@ -1032,299 +1032,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "used heap"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "used nonheap"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "blue",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "max heap"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "max nonheap"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 30
-      },
-      "id": 5,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "jvm_memory_bytes_used{pod=\"$pod\"}",
-          "legendFormat": "used {{area}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "jvm_memory_bytes_max{pod=\"$pod\"}",
-          "hide": false,
-          "legendFormat": "max {{area}}",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "title": "Memory heap/non-heap",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "The amount of non-heap memory used by Tomcat\t",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 8,
-        "x": 0,
-        "y": 40
-      },
-      "id": 34,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "sortBy": "Last *",
-          "sortDesc": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_max{pod=\"$pod\"})",
-          "legendFormat": "max",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_used{pod=\"$pod\"})",
-          "hide": false,
-          "legendFormat": "used",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_committed{pod=\"$pod\"})",
-          "hide": false,
-          "legendFormat": "commited",
-          "range": true,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_init {pod=\"$pod\"})",
-          "hide": false,
-          "legendFormat": "init",
-          "range": true,
-          "refId": "D"
-        }
-      ],
-      "title": "NonHeap memory",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
       "description": "The amount of heap memory used by Tomcat\t",
       "fieldConfig": {
         "defaults": {
@@ -1378,8 +1085,8 @@
       "gridPos": {
         "h": 10,
         "w": 16,
-        "x": 8,
-        "y": 40
+        "x": 0,
+        "y": 30
       },
       "id": 32,
       "options": {
@@ -1455,6 +1162,136 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
+      "description": "The amount of non-heap memory used by Tomcat\t",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 30
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_max{pod=\"$pod\"})",
+          "legendFormat": "max",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(java_lang_Memory_NonHeapMemoryUsage_used{pod=\"$pod\"})",
+          "hide": false,
+          "legendFormat": "used",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_committed{pod=\"$pod\"})",
+          "hide": false,
+          "legendFormat": "commited",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum( java_lang_Memory_NonHeapMemoryUsage_init {pod=\"$pod\"})",
+          "hide": false,
+          "legendFormat": "init",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Non Heap memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1508,7 +1345,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 40
       },
       "id": 15,
       "options": {
@@ -1564,7 +1401,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 51
       },
       "id": 23,
       "options": {
@@ -1667,9 +1504,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 64
+        "y": 54
       },
       "id": 35,
       "maxPerRow": 2,
@@ -1724,7 +1561,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 88
+        "y": 70
       },
       "id": 74,
       "options": {
@@ -1887,7 +1724,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 90
+        "y": 72
       },
       "id": 25,
       "options": {
@@ -1927,7 +1764,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 98
+        "y": 80
       },
       "id": 75,
       "options": {
@@ -2016,7 +1853,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 100
+        "y": 82
       },
       "id": 28,
       "options": {
@@ -2124,7 +1961,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 100
+        "y": 82
       },
       "id": 27,
       "options": {
@@ -2215,7 +2052,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 108
+        "y": 90
       },
       "id": 29,
       "options": {
@@ -2332,7 +2169,7 @@
         "h": 8,
         "w": 4,
         "x": 8,
-        "y": 108
+        "y": 90
       },
       "id": 30,
       "options": {
@@ -2422,7 +2259,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 108
+        "y": 90
       },
       "id": 31,
       "options": {
@@ -2454,7 +2291,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "5s",
+  "refresh": "1m",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -2558,6 +2395,6 @@
   "timezone": "",
   "title": "JVM",
   "uid": "fb565b78-f536-4426-921a-d3725a5efde3",
-  "version": 13,
+  "version": 21,
   "weekStart": ""
 }
