@@ -77,9 +77,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## On this dashboard, you will find with one glance 
-what are the working services and the one experiencing troubles\n\n### 💥 
-You can click at any time on the names to open a more detailed vue",
+        "content": "## On this dashboard, you will find with one glance what are the working services and the one experiencing troubles\n\n### 💥 You can click at any time on the names to open a more detailed vue",
         "mode": "markdown"
       },
       "pluginVersion": "9.5.2",
@@ -102,8 +100,7 @@ You can click at any time on the names to open a more detailed vue",
             {
               "targetBlank": true,
               "title": "drill down to namespace selected",
-              "url": 
-"d/e1fd592c-cbda-43fb-95ee-1535ee05dee8/namespace?var-namespace=${namespace:queryparam}"
+              "url": "d/e1fd592c-cbda-43fb-95ee-1535ee05dee8/${namespace:queryparam}"
             }
           ],
           "mappings": [
@@ -176,15 +173,7 @@ You can click at any time on the names to open a more detailed vue",
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": 
-"((sum(rate(container_cpu_usage_seconds_total{container!=\"\", 
-namespace=~\"$namespace\"}[$__rate_interval])) / 
-sum(kube_pod_container_resource_limits{container!=\"\", 
-namespace=~\"$namespace\", resource=\"cpu\"}))<0.95)\n+ 
-\n((sum(container_memory_working_set_bytes{container!=\"\", 
-namespace=\"$namespace\"}) 
-/\nsum(kube_pod_container_resource_limits{resource=\"memory\", 
-namespace=\"$namespace\"})) <0.95)",
+          "expr": "((sum(rate(container_cpu_usage_seconds_total{container!=\"\", namespace=~\"$namespace\"}[$__rate_interval])) / sum(kube_pod_container_resource_limits{container!=\"\", namespace=~\"$namespace\", resource=\"cpu\"}))<0.95)\n+ \n((sum(container_memory_working_set_bytes{container!=\"\", namespace=\"$namespace\"}) /\nsum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"$namespace\"})) <0.95)",
           "legendFormat": "CPU Usage",
           "range": true,
           "refId": "A"
@@ -250,6 +239,6 @@ namespace=\"$namespace\"})) <0.95)",
   "timezone": "",
   "title": "General",
   "uid": "e5882a93-e462-4380-a622-3008de418c83",
-  "version": 17,
+  "version": 18,
   "weekStart": ""
 }
