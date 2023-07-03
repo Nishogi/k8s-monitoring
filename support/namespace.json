@@ -639,7 +639,7 @@
             "refId": "A"
           }
         ],
-        "title": "Usage on total cluster RAM in %",
+        "title": "Usage on total cluster memory in %",
         "type": "gauge"
       },
       {
@@ -647,7 +647,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "description": "the CPU Usage by pod in the cluster",
+        "description": "memory used by the pod \ndivided by\ntotal memory allocated to the pod",
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -722,7 +722,7 @@
             "refId": "A"
           }
         ],
-        "title": "CPU Usage by pod",
+        "title": "memory usage of each pod in the namespace",
         "type": "bargauge"
       }
     ],
@@ -764,6 +764,6 @@
     "timezone": "",
     "title": "namespace",
     "uid": "e1fd592c-cbda-43fb-95ee-1535ee05dee8",
-    "version": 14,
+    "version": 16,
     "weekStart": ""
   }
