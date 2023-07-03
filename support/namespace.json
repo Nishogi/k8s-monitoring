@@ -46,6 +46,12 @@
         "id": "stat",
         "name": "Stat",
         "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "text",
+        "name": "Text",
+        "version": ""
       }
     ],
     "annotations": {
@@ -85,11 +91,155 @@
     "liveNow": true,
     "panels": [
       {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 38,
+        "options": {
+          "code": {
+            "language": "plaintext",
+            "showLineNumbers": false,
+            "showMiniMap": false
+          },
+          "content": "## On this dashboard, you will find the detail of the namespace with an overview of the state of its pods\n\n### 💥 You can click at any time on a block, or on a name to open a more detailed vue",
+          "mode": "markdown"
+        },
+        "pluginVersion": "9.5.2",
+        "title": "Legend",
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "red",
+              "mode": "fixed"
+            },
+            "links": [
+              {
+                "targetBlank": true,
+                "title": "drill down to namespace selected",
+                "url": "d/b458e42a-6b59-4b54-8794-e763223cdcfc/?${pod:queryparam}"
+              }
+            ],
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "color": "red",
+                    "index": 1,
+                    "text": "DOWN"
+                  }
+                },
+                "type": "value"
+              },
+              {
+                "options": {
+                  "from": 0,
+                  "result": {
+                    "color": "green",
+                    "index": 0,
+                    "text": "UP"
+                  },
+                  "to": 0.95
+                },
+                "type": "range"
+              }
+            ],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 50
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 4
+        },
+        "id": 26,
+        "maxPerRow": 6,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "vertical",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.5.2",
+        "repeat": "pod",
+        "repeatDirection": "h",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "((sum(rate(container_cpu_usage_seconds_total{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\"}[$__rate_interval])) / sum(kube_pod_container_resource_limits{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\", resource=\"cpu\"}))<0.95) OR on() vector(0)\n+ \n((sum(container_memory_working_set_bytes{container!=\"\", namespace=\"$namespace\", pod=\"$pod\"}) /\nsum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"$namespace\", pod=\"$pod\"})) <0.95) OR on() vector(0)",
+            "legendFormat": "CPU Usage",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "",
+            "hide": false,
+            "legendFormat": "Memory Usage",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "title": "$pod",
+        "type": "stat"
+      },
+      {
         "gridPos": {
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 0
+          "y": 12
         },
         "id": 20,
         "title": "General",
@@ -126,7 +276,7 @@
           "h": 7,
           "w": 4,
           "x": 0,
-          "y": 1
+          "y": 13
         },
         "id": 3,
         "options": {
@@ -195,7 +345,7 @@
           "h": 7,
           "w": 4,
           "x": 4,
-          "y": 1
+          "y": 13
         },
         "id": 22,
         "options": {
@@ -238,6 +388,77 @@
         "fieldConfig": {
           "defaults": {
             "color": {
+              "fixedColor": "light-yellow",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 3
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 4,
+          "x": 8,
+          "y": 13
+        },
+        "id": 37,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.5.2",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "sum (kube_pod_status_ready{condition=\"false\", namespace=\"$namespace\"})\n",
+            "interval": "1m",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "number of pods not ready",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
               "mode": "palette-classic"
             },
             "custom": {
@@ -260,9 +481,9 @@
         },
         "gridPos": {
           "h": 7,
-          "w": 16,
-          "x": 8,
-          "y": 1
+          "w": 12,
+          "x": 12,
+          "y": 13
         },
         "id": 25,
         "options": {
@@ -311,7 +532,7 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 8
+          "y": 20
         },
         "id": 18,
         "panels": [],
@@ -365,7 +586,7 @@
           "h": 8,
           "w": 4,
           "x": 0,
-          "y": 9
+          "y": 21
         },
         "id": 6,
         "options": {
@@ -443,7 +664,7 @@
           "h": 8,
           "w": 20,
           "x": 4,
-          "y": 9
+          "y": 21
         },
         "id": 15,
         "options": {
@@ -488,7 +709,7 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 17
+          "y": 29
         },
         "id": 17,
         "title": "Memory",
@@ -529,7 +750,7 @@
           "h": 8,
           "w": 4,
           "x": 0,
-          "y": 18
+          "y": 30
         },
         "id": 5,
         "options": {
@@ -610,7 +831,7 @@
           "h": 8,
           "w": 4,
           "x": 4,
-          "y": 18
+          "y": 30
         },
         "id": 8,
         "options": {
@@ -685,7 +906,7 @@
           "h": 8,
           "w": 16,
           "x": 8,
-          "y": 18
+          "y": 30
         },
         "id": 24,
         "options": {
@@ -753,6 +974,28 @@
           "skipUrlSync": false,
           "sort": 0,
           "type": "query"
+        },
+        {
+          "current": {},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "definition": "label_values(kube_pod_info{namespace=\"$namespace\"},pod)",
+          "hide": 2,
+          "includeAll": true,
+          "multi": false,
+          "name": "pod",
+          "options": [],
+          "query": {
+            "query": "label_values(kube_pod_info{namespace=\"$namespace\"},pod)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
         }
       ]
     },
@@ -764,6 +1007,6 @@
     "timezone": "",
     "title": "namespace",
     "uid": "e1fd592c-cbda-43fb-95ee-1535ee05dee8",
-    "version": 16,
+    "version": 25,
     "weekStart": ""
   }
