@@ -1,59 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.5.2"
-    },
-    {
-      "type": "panel",
-      "id": "piechart",
-      "name": "Pie chart",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -73,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": null,
+  "id": 95,
   "links": [
     {
       "asDropdown": false,
@@ -81,11 +26,11 @@
       "includeVars": false,
       "keepTime": true,
       "tags": [],
-      "targetBlank": true,
+      "targetBlank": false,
       "title": "go back to general view",
       "tooltip": "",
       "type": "link",
-      "url": "https://app-test.geoconcept.com/zgrafana/d/e5882a93-e462-4380-a622-3008de418c83/general?orgId=1&from=1688369385864&to=1688390985864"
+      "url": "https://app-test.geoconcept.com/zgrafana/goto/ITZV8x9Vg?orgId=1"
     }
   ],
   "liveNow": true,
@@ -93,7 +38,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "gridPos": {
         "h": 4,
@@ -119,7 +64,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -137,23 +82,25 @@
           "mappings": [
             {
               "options": {
-                "0": {
-                  "color": "red",
-                  "index": 1,
-                  "text": "DOWN"
-                }
-              },
-              "type": "value"
-            },
-            {
-              "options": {
                 "from": 0,
                 "result": {
                   "color": "green",
                   "index": 0,
                   "text": "UP"
                 },
-                "to": 0.95
+                "to": 10
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": -10,
+                "result": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "DANGER"
+                },
+                "to": 0
               },
               "type": "range"
             }
@@ -166,14 +113,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -210,10 +149,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "((sum(rate(container_cpu_usage_seconds_total{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\"}[$__rate_interval])) / sum(kube_pod_container_resource_limits{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\", resource=\"cpu\"}))<0.95) OR on() vector(0)\n+ \n((sum(container_memory_working_set_bytes{container!=\"\", namespace=\"$namespace\", pod=\"$pod\"}) /\nsum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"$namespace\", pod=\"$pod\"})) <0.95) OR on() vector(0)",
+          "expr": "(((sum(rate(container_cpu_usage_seconds_total{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\"}[$__rate_interval])) / sum(kube_pod_container_resource_limits{container!=\"\", namespace=~\"$namespace\", pod=\"$pod\", resource=\"cpu\"}))<0.95) OR on() vector(-2))\n+ \n(((sum(container_memory_working_set_bytes{container!=\"\", namespace=\"$namespace\", pod=\"$pod\"}) /\nsum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"$namespace\", pod=\"$pod\"})) <0.95) OR on() vector(-2))\n",
           "legendFormat": "CPU Usage",
           "range": true,
           "refId": "A"
@@ -221,7 +160,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "",
@@ -248,7 +187,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "number of pods in $namespace",
       "fieldConfig": {
@@ -298,7 +237,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(kube_pod_info{namespace=\"$namespace\"})",
@@ -313,7 +252,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -367,7 +306,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum (changes(kube_pod_status_ready{namespace=\"$namespace\",condition=\"true\"}[$__rate_interval]))",
@@ -383,7 +322,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -438,7 +377,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum (kube_pod_status_ready{condition=\"false\", namespace=\"$namespace\"})\n",
@@ -454,7 +393,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -514,7 +453,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum by (pod) (kube_pod_info{pod!~\".*prometheus.*\", namespace=\"$namespace\"})",
@@ -542,7 +481,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "",
       "fieldConfig": {
@@ -609,7 +548,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\",container!=\"\"}[$__rate_interval])) / sum(machine_cpu_cores)",
@@ -624,7 +563,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "CPU used by the pod \ndivided by\ntotal CPU allocated to the pod",
       "fieldConfig": {
@@ -688,7 +627,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -718,7 +657,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "total memory used by the namespace (1 EB=10e18 B)",
       "fieldConfig": {
@@ -733,8 +672,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -772,7 +710,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"})",
@@ -787,7 +725,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "",
       "fieldConfig": {
@@ -802,8 +740,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -851,7 +788,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"}) / sum(machine_memory_bytes)",
@@ -866,7 +803,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "prometheus"
       },
       "description": "memory used by the pod \ndivided by\ntotal memory allocated to the pod",
       "fieldConfig": {
@@ -889,8 +826,7 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -930,7 +866,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "prometheus"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -954,10 +890,14 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "z-gcworkers-nfs-2023-1-1",
+          "value": "z-gcworkers-nfs-2023-1-1"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "prometheus"
         },
         "definition": "label_values(kube_pod_info,namespace)",
         "hide": 0,
@@ -976,10 +916,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "prometheus"
         },
         "definition": "label_values(kube_pod_info{namespace=\"$namespace\"},pod)",
         "hide": 2,
@@ -1007,6 +951,6 @@
   "timezone": "",
   "title": "namespace",
   "uid": "e1fd592c-cbda-43fb-95ee-1535ee05dee8",
-  "version": 26,
+  "version": 34,
   "weekStart": ""
 }
