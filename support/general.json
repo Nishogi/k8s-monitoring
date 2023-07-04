@@ -77,7 +77,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## On this dashboard, you will find with one glance what are the working services and the one experiencing troubles\n\n### 💥 You can click at any time on the names to open a more detailed vue",
+        "content": "## On this dashboard, you will find with one glance what are the working services and the one experiencing troubles\n\n### 💥 You can click at any time on a block to open a more detailed vue",
         "mode": "markdown"
       },
       "pluginVersion": "9.5.2",
@@ -100,57 +100,56 @@
             {
               "targetBlank": true,
               "title": "drill down to namespace selected",
-              "url": "d/e1fd592c-cbda-43fb-95ee-1535ee05dee8/${namespace:queryparam}"
+              "url": "d/e1fd592c-cbda-43fb-95ee-1535ee05dee8/?${namespace:queryparam}"
             }
           ],
           "mappings": [
             {
               "options": {
-                "from": 0,
-                "result": {
-                  "color": "green",
+                "0": {
+                  "color": "dark-green",
                   "index": 0,
                   "text": "UP"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "DOWN"
                 },
-                "to": 0.95
+                "to": 1e+308
               },
               "type": "range"
             }
           ],
-          "max": 1,
-          "min": 0,
-          "noValue": "DOWN",
           "thresholds": {
             "mode": "percentage",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 50
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "percentunit"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 2,
+        "w": 3,
         "x": 0,
         "y": 4
       },
       "id": 2,
-      "maxPerRow": 12,
+      "maxPerRow": 8,
       "options": {
-        "colorMode": "value",
+        "colorMode": "background_solid",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "vertical",
@@ -173,7 +172,7 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "((sum(rate(container_cpu_usage_seconds_total{container!=\"\", namespace=~\"$namespace\"}[$__rate_interval])) / sum(kube_pod_container_resource_limits{container!=\"\", namespace=~\"$namespace\", resource=\"cpu\"}))<0.95)\n+ \n((sum(container_memory_working_set_bytes{container!=\"\", namespace=\"$namespace\"}) /\nsum(kube_pod_container_resource_limits{resource=\"memory\", namespace=\"$namespace\"})) <0.95)",
+          "expr": "sum((1 - (up{container!=\"\", namespace=~\"$namespace\"} OR on() vector(0))))\n\n",
           "legendFormat": "CPU Usage",
           "range": true,
           "refId": "A"
@@ -208,7 +207,7 @@
           "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(kube_pod_info,namespace)",
-        "hide": 0,
+        "hide": 2,
         "includeAll": true,
         "multi": true,
         "name": "namespace",
@@ -239,6 +238,6 @@
   "timezone": "",
   "title": "General",
   "uid": "e5882a93-e462-4380-a622-3008de418c83",
-  "version": 18,
+  "version": 41,
   "weekStart": ""
 }
