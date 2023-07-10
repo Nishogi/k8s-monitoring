@@ -172,8 +172,8 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum((1 - (up{container!=\"\", namespace=~\"$namespace\"} OR on() vector(0))))\n\n",
-          "legendFormat": "CPU Usage",
+          "expr": "((sum(kube_pod_status_ready{condition=\"false\", namespace=\"$namespace\"})) )",
+          "legendFormat": "{{pod}}",
           "range": true,
           "refId": "A"
         },
@@ -238,6 +238,6 @@
   "timezone": "",
   "title": "General",
   "uid": "e5882a93-e462-4380-a622-3008de418c83",
-  "version": 41,
+  "version": 62,
   "weekStart": ""
 }
