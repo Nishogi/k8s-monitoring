@@ -65,7 +65,7 @@
         "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 24,
         "x": 0,
         "y": 0
@@ -77,7 +77,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## On this dashboard, you will find with one glance what are the working services and the one experiencing troubles\n\n### 💥 You can click at any time on a block to open a more detailed vue",
+        "content": "## On this dashboard, you will find with one glance what are the working services and the one experiencing troubles\n</br>\n\n### ℹ️ UP means all pods are in \"ready\" state\n### &emsp; DOWN means atleast one pod is not in \"ready\" state\n</br>\n\n\n\n\n### 💥 You can click at any time on a block to open a more detailed vue",
         "mode": "markdown"
       },
       "pluginVersion": "9.5.2",
@@ -144,7 +144,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 7
       },
       "id": 2,
       "maxPerRow": 8,
@@ -225,7 +225,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -238,6 +238,6 @@
   "timezone": "",
   "title": "General",
   "uid": "e5882a93-e462-4380-a622-3008de418c83",
-  "version": 68,
+  "version": 69,
   "weekStart": ""
 }
