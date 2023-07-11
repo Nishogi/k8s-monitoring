@@ -1561,7 +1561,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 70
+        "y": 62
       },
       "id": 74,
       "options": {
@@ -1724,7 +1724,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 72
+        "y": 64
       },
       "id": 25,
       "options": {
@@ -1764,7 +1764,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 72
       },
       "id": 75,
       "options": {
@@ -1853,7 +1853,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 82
+        "y": 74
       },
       "id": 28,
       "options": {
@@ -1961,7 +1961,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 82
+        "y": 74
       },
       "id": 27,
       "options": {
@@ -2052,7 +2052,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 90
+        "y": 82
       },
       "id": 29,
       "options": {
@@ -2169,7 +2169,7 @@
         "h": 8,
         "w": 4,
         "x": 8,
-        "y": 90
+        "y": 82
       },
       "id": 30,
       "options": {
@@ -2259,7 +2259,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 90
+        "y": 82
       },
       "id": 31,
       "options": {
@@ -2291,7 +2291,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "1m",
+  "refresh": "5s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -2326,7 +2326,7 @@
           "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(jvm_info{namespace=\"$namespace\"},service)",
-        "hide": 0,
+        "hide": 2,
         "includeAll": false,
         "multi": true,
         "name": "service",
@@ -2395,6 +2395,6 @@
   "timezone": "",
   "title": "JVM",
   "uid": "fb565b78-f536-4426-921a-d3725a5efde3",
-  "version": 21,
+  "version": 23,
   "weekStart": ""
 }

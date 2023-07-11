@@ -1,6 +1,10 @@
 # V1
 
-First dashboard version.
+Composed of one dashboard.
+
+---
+
+# First dashboard 
 
 ## Variables
 
@@ -9,7 +13,6 @@ Default time zone is last 3 hours.
 Possibility to select the namespaces, pods and geographical zones (for geoservices) that you want to monitor.
 
 Default are z-gcworkers-nfs-2023-1-1 for namespace, All for pod and / for geographical zone (=plaque).
-
 ## Metrics by row
 
 - CPU :

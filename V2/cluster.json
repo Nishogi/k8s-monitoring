@@ -31,18 +31,6 @@
       "tooltip": "Open JVM dashboard",
       "type": "link",
       "url": "https://app-test.geoconcept.com/zgrafana/d/fb565b78-f536-4426-921a-d3725a5efde3/jvm?orgId=1&refresh=5s"
-    },
-    {
-      "asDropdown": false,
-      "icon": "doc",
-      "includeVars": true,
-      "keepTime": true,
-      "tags": [],
-      "targetBlank": true,
-      "title": "Drill/Down Dasboard",
-      "tooltip": "open drill/down dashboard",
-      "type": "link",
-      "url": "https://app-test.geoconcept.com/zgrafana/d/dfcd70ea-dbac-4bfa-b71e-bcb93e5be1f3/drill-down?orgId=1"
     }
   ],
   "liveNow": true,
@@ -537,7 +525,73 @@
           "refId": "A"
         }
       ],
-      "title": "number of containers with no CPU limits, by namespace",
+      "title": "number of pods with no CPU limit, by namespace",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "light-red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 26,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "count by (namespace)(sum by (namespace,pod,container)(kube_pod_container_info{container!=\"\",pod!~\".*prometheus.*\", namespace!~\".*kube-system.*\"}) unless sum by (namespace,pod,container)(kube_pod_container_resource_limits{resource=\"memory\",pod!~\".*prometheus.*\", namespace!~\".*kube-system.*\"}))",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "number of pods with no memory limit, by namespace",
       "type": "stat"
     },
     {
@@ -546,7 +600,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 33
       },
       "id": 18,
       "panels": [],
@@ -584,7 +638,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 27
+        "y": 34
       },
       "id": 2,
       "options": {
@@ -665,7 +719,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 27
+        "y": 34
       },
       "id": 6,
       "options": {
@@ -728,7 +782,7 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 27
+        "y": 34
       },
       "id": 15,
       "options": {
@@ -772,7 +826,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 42
       },
       "id": 19,
       "panels": [],
@@ -810,7 +864,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 36
+        "y": 43
       },
       "id": 4,
       "options": {
@@ -891,7 +945,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 36
+        "y": 43
       },
       "id": 7,
       "options": {
@@ -982,7 +1036,7 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 36
+        "y": 43
       },
       "id": 12,
       "options": {
@@ -1030,7 +1084,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 51
       },
       "id": 17,
       "title": "Memory",
@@ -1071,7 +1125,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 45
+        "y": 52
       },
       "id": 5,
       "options": {
@@ -1152,7 +1206,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 45
+        "y": 52
       },
       "id": 8,
       "options": {
@@ -1215,7 +1269,7 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 45
+        "y": 52
       },
       "id": 11,
       "options": {
@@ -1258,7 +1312,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 60
       },
       "id": 16,
       "panels": [],
@@ -1418,7 +1472,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 61
       },
       "id": 13,
       "options": {
@@ -1571,7 +1625,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 61
       },
       "id": 14,
       "options": {
@@ -1630,6 +1684,6 @@
   "timezone": "",
   "title": "cluster",
   "uid": "c5ee7ccc-8565-4c09-9199-7ff52b1cd9dc",
-  "version": 36,
+  "version": 39,
   "weekStart": ""
 }
