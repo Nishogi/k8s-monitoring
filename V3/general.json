@@ -176,18 +176,6 @@
           "legendFormat": "{{pod}}",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "",
-          "hide": false,
-          "legendFormat": "Memory Usage",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "$namespace",
@@ -238,6 +226,6 @@
   "timezone": "",
   "title": "General",
   "uid": "e5882a93-e462-4380-a622-3008de418c83",
-  "version": 69,
+  "version": 71,
   "weekStart": ""
 }
