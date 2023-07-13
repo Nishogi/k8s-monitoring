@@ -12,6 +12,12 @@
   "__elements": {},
   "__requires": [
     {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
@@ -77,30 +83,6 @@
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
-      "gridPos": {
-        "h": 2,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 1,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "# 1. 🗒️ General",
-        "mode": "markdown"
-      },
-      "pluginVersion": "9.5.2",
-      "type": "text"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -124,10 +106,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 11,
+        "h": 6,
+        "w": 9,
         "x": 0,
-        "y": 2
+        "y": 0
       },
       "id": 2,
       "options": {
@@ -174,36 +156,282 @@
           "color": {
             "mode": "thresholds"
           },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 9,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum(node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate{namespace=\"$namespace\", pod=\"$pod\"}) / sum(kube_pod_container_resource_requests{ namespace=\"$namespace\", pod=\"$pod\", resource=\"cpu\"})",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "CPU usage",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 12,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "sum( container_memory_working_set_bytes{pod='$pod'}) / sum( container_memory_usage_bytes{pod='$pod'})\n",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memory usage",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 15,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^namespace$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "kube_pod_container_info{pod=\"$pod\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "namespace name",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# 🪪 Identify the type of service running\n\n## Click on the block to open to access the datas",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "links": [
+            {
+              "targetBlank": false,
+              "title": "drill down to JVM datas",
+              "url": "/d/c6f87fef-531d-46ca-805e-5d1c2fdb1a82/view-classic?${namespace:queryparam}&${pod:queryparam}"
+            }
+          ],
           "mappings": [
             {
               "options": {
                 "0": {
-                  "color": "green",
+                  "color": "red",
                   "index": 0,
-                  "text": "UP"
-                },
-                "1": {
-                  "color": "dark-red",
-                  "index": 2,
-                  "text": "DOWN"
+                  "text": "NO"
                 }
               },
               "type": "value"
             },
             {
               "options": {
-                "match": "null",
+                "from": 1,
                 "result": {
-                  "color": "dark-red",
+                  "color": "green",
                   "index": 1,
-                  "text": "DOWN"
-                }
+                  "text": "YES"
+                },
+                "to": 1e+308
               },
-              "type": "special"
+              "type": "range"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -217,16 +445,16 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 11,
-        "y": 2
+        "w": 8,
+        "x": 0,
+        "y": 9
       },
-      "id": 3,
+      "id": 8,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "auto",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -244,86 +472,25 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "(kube_pod_status_ready{condition=\"false\", namespace=\"$namespace\", pod=\"$pod\"})",
-          "legendFormat": "__auto",
+          "expr": "kube_pod_info{namespace=\"$namespace\", pod=\"$pod\"} OR on() vector(0)",
+          "legendFormat": "{{condition}}",
           "range": true,
           "refId": "A"
-        }
-      ],
-      "title": "Status",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "0": {
-                  "color": "red",
-                  "index": 0,
-                  "text": "N/A"
-                }
-              },
-              "type": "value"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "dateTimeAsIso"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 15,
-        "y": 2
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.2",
-      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_Runtime_StartTime{pod=\"$pod\"} OR on() vector(0)",
-          "legendFormat": "__auto",
+          "expr": "",
+          "hide": false,
+          "legendFormat": "Memory Usage",
           "range": true,
-          "refId": "A"
+          "refId": "B"
         }
       ],
-      "title": "Start time",
+      "title": "Classic ?",
       "type": "stat"
     },
     {
@@ -334,24 +501,44 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "green",
+            "fixedColor": "purple",
             "mode": "fixed"
           },
-          "decimals": 0,
+          "links": [
+            {
+              "targetBlank": false,
+              "title": "drill down to JVM datas",
+              "url": "/d/fb565b78-f536-4426-921a-d3725a5efde2/view-jvm?${namespace:queryparam}&${pod:queryparam}"
+            }
+          ],
           "mappings": [
             {
               "options": {
                 "0": {
                   "color": "red",
                   "index": 0,
-                  "text": "N/A"
+                  "text": "NO"
                 }
               },
               "type": "value"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "YES"
+                },
+                "to": 1e+308
+              },
+              "type": "range"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "green",
@@ -359,22 +546,22 @@
               }
             ]
           },
-          "unit": "ms"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 20,
-        "y": 2
+        "w": 8,
+        "x": 8,
+        "y": 9
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "colorMode": "value",
         "graphMode": "none",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -392,13 +579,132 @@
             "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "java_lang_Runtime_Uptime{pod=\"$pod\"} OR on() vector(0)",
-          "legendFormat": "__auto",
+          "expr": "java_lang_Runtime_Uptime{namespace=\"$namespace\",pod=\"$pod\"} OR on() vector(0)",
+          "legendFormat": "{{condition}}",
           "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "legendFormat": "Memory Usage",
+          "range": true,
+          "refId": "B"
         }
       ],
-      "title": "UP time",
+      "title": "JVM ?",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "purple",
+            "mode": "fixed"
+          },
+          "links": [
+            {
+              "targetBlank": false,
+              "title": "drill down to tomcat datas",
+              "url": "/d/aac3e977-1d46-4e66-a28e-a182a50141ed/view-tomcat?${namespace:queryparam}&${pod:queryparam}"
+            }
+          ],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "NO"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 1,
+                "result": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "YES"
+                },
+                "to": 1e+308
+              },
+              "type": "range"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 9
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "Catalina_ThreadPool_running{namespace=\"$namespace\",pod=\"$pod\"} OR on() vector(0)",
+          "legendFormat": "{{condition}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "expr": "",
+          "hide": false,
+          "legendFormat": "Memory Usage",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Tomcat ?",
       "type": "stat"
     }
   ],
@@ -462,6 +768,6 @@
   "timezone": "",
   "title": "pod",
   "uid": "b458e42a-6b59-4b54-8794-e763223cdcfc",
-  "version": 13,
+  "version": 26,
   "weekStart": ""
 }
