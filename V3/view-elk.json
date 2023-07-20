@@ -1,41 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_ELASTICSEARCH_GEOSERVICES",
-      "label": "Elasticsearch Geoservices",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "elasticsearch",
-      "pluginName": "Elasticsearch"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "datasource",
-      "id": "elasticsearch",
-      "name": "Elasticsearch",
-      "version": "1.0.0"
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.5.2"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -55,14 +18,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
+  "id": 112,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+        "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
       },
       "fieldConfig": {
         "defaults": {
@@ -275,7 +238,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+            "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
           },
           "metrics": [
             {
@@ -303,7 +266,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+        "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
       },
       "fieldConfig": {
         "defaults": {
@@ -484,7 +447,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+            "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
           },
           "metrics": [
             {
@@ -510,17 +473,21 @@
       "type": "stat"
     }
   ],
-  "refresh": false,
+  "refresh": "",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+          "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"gc.app_zone.keyword\"}",
         "hide": 0,
@@ -536,10 +503,14 @@
         "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": {
           "type": "elasticsearch",
-          "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
+          "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
         },
         "definition": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"query\": \"gc.app_zone.keyword : $geo_zone\"\n}",
         "hide": 0,
@@ -557,13 +528,13 @@
     ]
   },
   "time": {
-    "from": "2023-07-19T12:25:46.180Z",
-    "to": "2023-07-19T15:25:46.180Z"
+    "from": "now-3h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "view-elk",
   "uid": "ff15dda2-ff34-4d2e-aadf-8f4839d33728",
-  "version": 30,
+  "version": 31,
   "weekStart": ""
 }
