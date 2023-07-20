@@ -283,7 +283,7 @@
               "type": "count"
             }
           ],
-          "query": "gc.app_zone.keyword : $geo_zone",
+          "query": "gc.app_zone.keyword : $geo_zone and agent.hostname : $pod",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -492,7 +492,7 @@
               "type": "count"
             }
           ],
-          "query": "gc.app_zone.keyword : $geo_zone",
+          "query": "gc.app_zone.keyword : $geo_zone and agent.hostname : $pod",
           "refId": "A",
           "timeField": "@timestamp"
         }
@@ -541,14 +541,13 @@
           "type": "elasticsearch",
           "uid": "${DS_ELASTICSEARCH_GEOSERVICES}"
         },
-        "definition": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"filter\": [\n{\"gc.app_zone\" : $geo_zone\n}]\n}",
-        "error": {},
+        "definition": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"query\": \"gc.app_zone.keyword : $geo_zone\"\n}",
         "hide": 0,
         "includeAll": true,
         "multi": false,
         "name": "pod",
         "options": [],
-        "query": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"filter\": [\n{\"gc.app_zone\" : $geo_zone\n}]\n}",
+        "query": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"query\": \"gc.app_zone.keyword : $geo_zone\"\n}",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -565,6 +564,6 @@
   "timezone": "",
   "title": "view-elk",
   "uid": "ff15dda2-ff34-4d2e-aadf-8f4839d33728",
-  "version": 28,
+  "version": 30,
   "weekStart": ""
 }
