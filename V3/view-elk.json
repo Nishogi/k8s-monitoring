@@ -25,7 +25,7 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+        "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
       },
       "fieldConfig": {
         "defaults": {
@@ -62,6 +62,12 @@
               "mode": "off"
             }
           },
+          "links": [
+            {
+              "title": "drill down to HTTP codes",
+              "url": "/d/c52904f8-b367-44c4-89b1-502f81347c27/view-http?${HTTP_code:queryparam}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -69,10 +75,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -182,6 +184,30 @@
                 }
               }
             ]
+          },
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "200"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
           }
         ]
       },
@@ -238,7 +264,7 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+            "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
           },
           "metrics": [
             {
@@ -266,13 +292,19 @@
     {
       "datasource": {
         "type": "elasticsearch",
-        "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+        "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
+          "links": [
+            {
+              "title": "drill down to HTTP codes",
+              "url": "/d/c52904f8-b367-44c4-89b1-502f81347c27/view-http?${HTTP_code:queryparam}"
+            }
+          ],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -280,10 +312,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -447,10 +475,11 @@
           ],
           "datasource": {
             "type": "elasticsearch",
-            "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+            "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
           },
           "metrics": [
             {
+              "hide": false,
               "id": "1",
               "type": "count"
             }
@@ -473,7 +502,7 @@
       "type": "stat"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -487,7 +516,7 @@
         },
         "datasource": {
           "type": "elasticsearch",
-          "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+          "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
         },
         "definition": "{\"find\": \"terms\", \"field\": \"gc.app_zone.keyword\"}",
         "hide": 0,
@@ -510,7 +539,7 @@
         },
         "datasource": {
           "type": "elasticsearch",
-          "uid": "ef5c1e90-955c-49a0-a61b-1192203865b5"
+          "uid": "c062ace6-0368-4f18-bde9-63d74363f242"
         },
         "definition": "{\n\"find\": \"terms\", \n\"field\": \"agent.hostname\", \n\"query\": \"gc.app_zone.keyword : $geo_zone\"\n}",
         "hide": 0,
@@ -528,13 +557,13 @@
     ]
   },
   "time": {
-    "from": "now-3h",
-    "to": "now"
+    "from": "2023-07-19T12:25:46.180Z",
+    "to": "2023-07-19T15:25:46.180Z"
   },
   "timepicker": {},
   "timezone": "",
   "title": "view-elk",
   "uid": "ff15dda2-ff34-4d2e-aadf-8f4839d33728",
-  "version": 31,
+  "version": 37,
   "weekStart": ""
 }

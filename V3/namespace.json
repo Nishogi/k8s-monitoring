@@ -1,4 +1,59 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.2"
+    },
+    {
+      "type": "panel",
+      "id": "piechart",
+      "name": "Pie chart",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -18,7 +73,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 95,
+  "id": null,
   "links": [
     {
       "asDropdown": false,
@@ -38,7 +93,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 4,
@@ -75,7 +130,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "number of pods in $namespace",
       "fieldConfig": {
@@ -125,7 +180,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(kube_pod_info{namespace=\"$namespace\"})",
@@ -140,7 +195,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -194,7 +249,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum (changes(kube_pod_status_ready{namespace=\"$namespace\",condition=\"true\"}[$__rate_interval]))",
@@ -210,7 +265,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -265,7 +320,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum (kube_pod_status_ready{condition=\"false\", namespace=\"$namespace\"})\n",
@@ -281,7 +336,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -341,7 +396,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum by (pod) (kube_pod_info{pod!~\".*prometheus.*\", namespace=\"$namespace\"})",
@@ -356,7 +411,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -374,6 +429,11 @@
           "mappings": [
             {
               "options": {
+                "0": {
+                  "color": "purple",
+                  "index": 3,
+                  "text": "UNEXCEPTED VALUE"
+                },
                 "1": {
                   "color": "dark-yellow",
                   "index": 2,
@@ -410,7 +470,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 4.8,
         "x": 0,
         "y": 12
       },
@@ -437,10 +497,10 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"true\"} OR on() vector(0)) * 100 +\nsum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"false\"} OR on() vector(0)) * 10 +\nsum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"unknown\"} OR on() vector(0)) * 1",
+          "expr": "(sum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"true\"} OR on() vector(0)) * 100) +\n(sum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"false\"} OR on() vector(0)) * 10) +\n(sum(kube_pod_status_ready{namespace=\"$namespace\", pod=\"$pod\", condition=\"unknown\"} OR on() vector(0)) * 1)",
           "legendFormat": "{{condition}}",
           "range": true,
           "refId": "A"
@@ -448,7 +508,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "",
@@ -467,7 +527,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 16
       },
       "id": 18,
       "panels": [],
@@ -477,7 +537,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -521,7 +581,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 21
+        "y": 17
       },
       "id": 6,
       "options": {
@@ -544,7 +604,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\",container!=\"\"}[$__rate_interval])) / sum(machine_cpu_cores)",
@@ -559,7 +619,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "CPU used by the pod \ndivided by\ntotal CPU allocated to the pod",
       "fieldConfig": {
@@ -599,7 +659,7 @@
         "h": 8,
         "w": 20,
         "x": 4,
-        "y": 21
+        "y": 17
       },
       "id": 15,
       "options": {
@@ -623,7 +683,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -644,7 +704,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 25
       },
       "id": 17,
       "title": "Memory",
@@ -653,7 +713,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "total memory used by the namespace (1 EB=10e18 B)",
       "fieldConfig": {
@@ -684,7 +744,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 30
+        "y": 26
       },
       "id": 5,
       "options": {
@@ -706,7 +766,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"})",
@@ -721,7 +781,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -764,7 +824,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 30
+        "y": 26
       },
       "id": 8,
       "options": {
@@ -784,7 +844,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"}) / sum(machine_memory_bytes)",
@@ -799,7 +859,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "memory used by the pod \ndivided by\ntotal memory allocated to the pod",
       "fieldConfig": {
@@ -838,7 +898,7 @@
         "h": 8,
         "w": 16,
         "x": 8,
-        "y": 30
+        "y": 26
       },
       "id": 24,
       "options": {
@@ -862,7 +922,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${DS_PROMETHEUS}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -886,14 +946,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": "z-gcworkers-nfs-2023-1-1",
-          "value": "z-gcworkers-nfs-2023-1-1"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(kube_pod_info,namespace)",
         "hide": 0,
@@ -912,14 +968,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(kube_pod_status_ready{namespace=\"$namespace\"},pod)",
         "hide": 2,
@@ -947,6 +999,6 @@
   "timezone": "",
   "title": "namespace",
   "uid": "e1fd592c-cbda-43fb-95ee-1535ee05dee8",
-  "version": 54,
+  "version": 60,
   "weekStart": ""
 }
