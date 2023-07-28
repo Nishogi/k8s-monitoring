@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 111,
+  "id": 37,
   "links": [
     {
       "asDropdown": false,
@@ -870,8 +870,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -967,8 +966,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1062,8 +1060,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1169,8 +1166,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1256,8 +1252,8 @@
       {
         "current": {
           "selected": false,
-          "text": "asyncgeocoder-geoservices-774ff6d867-pd4qh",
-          "value": "asyncgeocoder-geoservices-774ff6d867-pd4qh"
+          "text": "nfs-provisioner-2023-1-1-nfs-server-provisioner-0",
+          "value": "nfs-provisioner-2023-1-1-nfs-server-provisioner-0"
         },
         "datasource": {
           "type": "prometheus",
@@ -1290,6 +1286,6 @@
   "timezone": "",
   "title": "view-classic",
   "uid": "c6f87fef-531d-46ca-805e-5d1c2fdb1a82",
-  "version": 14,
+  "version": 1,
   "weekStart": ""
 }

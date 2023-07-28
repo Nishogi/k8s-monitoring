@@ -85,7 +85,7 @@
       "title": "go back to general view",
       "tooltip": "",
       "type": "link",
-      "url": "/d/e5882a93-e462-4380-a622-3008de418c83/general"
+      "url": "/d/general/general"
     }
   ],
   "liveNow": true,
@@ -470,7 +470,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4.8,
+        "w": 12,
         "x": 0,
         "y": 12
       },
@@ -999,6 +999,6 @@
   "timezone": "",
   "title": "namespace",
   "uid": "e1fd592c-cbda-43fb-95ee-1535ee05dee8",
-  "version": 60,
+  "version": 3,
   "weekStart": ""
 }
